@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: "FieldSet",
+  name: 'FieldSet',
 
-  props: ["label"],
-};
+  props: ['label']
+}
 </script>

@@ -1,22 +1,22 @@
 <script>
 export default {
-  name: "FormFieldAbstract",
+  name: 'FormFieldAbstract',
 
   props: [
-    "updateField",
-    "parentChanged",
-    "field",
-    "fields",
-    "form",
-    "filters",
-    "index",
-    "getProp",
-    "getFromField",
-    "value",
+    'updateField',
+    'parentChanged',
+    'field',
+    'fields',
+    'form',
+    'filters',
+    'index',
+    'getProp',
+    'getFromField',
+    'value'
   ],
 
   mounted() {
-    this.$emit("mounted");
-  },
-};
+    this.$emit('mounted')
+  }
+}
 </script>
