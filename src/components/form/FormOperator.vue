@@ -10,7 +10,7 @@
       :is="getGroupComp(schema)"
       :label="getSafe(schema, 'groupLabel')"
       :key="indexMain"
-      v-bin="{ ...defaltGroupAttr, ...getSafe(schema, 'groupAttr') }"
+      v-bind="{ ...defaltGroupAttr, ...getSafe(schema, 'groupAttr') }"
     >
       <component
         :is="getParentComp(schema)"
@@ -22,7 +22,6 @@
           :index="fieldNumber++"
           v-bind="bind(property)"
           :is="getComponent(property)"
-          @mounted="mounted(property.field)"
         />
       </component>
     </component>
@@ -65,13 +64,6 @@ const filteredFields = computed(() =>
 
 const errors = ref({})
 
-function mounted(field) {
-  event('mounted.' + field, {
-    item: props.form,
-    field: field
-  })
-}
-
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 function created() {
   listen('resetFilters', () => {
@@ -81,7 +73,6 @@ function created() {
 
 function bind(schema) {
   return {
-    schema,
     form: props.form,
     fields: props.fields,
     filters: filters.value,

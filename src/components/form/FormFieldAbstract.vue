@@ -14,9 +14,5 @@ export default {
     'getFromSchema',
     'value'
   ],
-
-  mounted() {
-    this.$emit('mounted')
-  }
 }
 </script>
