@@ -11,7 +11,7 @@ export default {
     'filters',
     'index',
     'getProp',
-    'getFromField',
+    'getFromSchema',
     'value'
   ],
 

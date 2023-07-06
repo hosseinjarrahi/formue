@@ -1,7 +1,7 @@
 {
   "name": "formue",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.3",
+  "private": false,
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -39,12 +39,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/my-lib.umd.cjs",
-  "module": "./dist/my-lib.js",
+  "main": "./dist/formue.umd.cjs",
+  "module": "./dist/formue.js",
   "exports": {
     ".": {
-      "import": "./dist/my-lib.js",
-      "require": "./dist/my-lib.umd.cjs"
+      "import": "./dist/formue.js",
+      "require": "./dist/formue.umd.cjs"
     }
   }
 }

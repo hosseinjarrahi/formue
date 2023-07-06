@@ -9,6 +9,7 @@ import TextField from './components/exampleField/TextField.vue'
 import useFormue from './composables/useFormue'
 import MForm from './components/MForm.vue'
 import { ref, onBeforeMount } from 'vue'
+import FieldSet from '@/components/utilities/FieldSet.vue'
 
 onBeforeMount(() => {
   const { registerFields } = useFormue()
@@ -22,8 +23,52 @@ const formData = ref({ name: 'test' })
 
 const fields = [
   {
-    title: 'نام محصول',
-    field: 'name',
+    groupLabel: 'group',
+    groupComponent: FieldSet,
+    items: [
+      {
+        groupAttr: { class: 'w-1/2' },
+        parentAttr: { class: 'w-1/2' },
+        title: 'نام سیبش',
+        field: 'name',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      },
+      {
+        title: 'نام سیب',
+        field: 'namasde',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      },
+      {
+        title: 'نام سیب',
+        field: 'namasde',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      },
+      {
+        title: 'نام سیب',
+        field: 'namasde',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      }
+    ]
+  },
+  {
+    title: 'نام سی',
+    field: 'namaaaasde',
     component: 'text',
     isHeader: true,
     validation(value) {
@@ -31,7 +76,77 @@ const fields = [
     }
   },
   {
-    title: 'نام محصول',
+    title: 'نام سی',
+    field: 'namaaaasde',
+    component: 'text',
+    isHeader: true,
+    validation(value) {
+      return value.length > 5 || 'غلطه'
+    }
+  },
+  {
+    title: 'نام سی',
+    field: 'namaaaasde',
+    component: 'text',
+    isHeader: true,
+    validation(value) {
+      return value.length > 5 || 'غلطه'
+    }
+  },
+  {
+    groupLabel: 'group',
+    items: [
+      {
+        groupAttr: { class: 'w-1/2' },
+        parentAttr: { class: 'w-1/2' },
+        title: 'نام سیبش',
+        field: 'name',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      },
+      {
+        title: 'نام سیب',
+        field: 'namasde',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      },
+      {
+        title: 'نام سیب',
+        field: 'namasde',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      },
+      {
+        title: 'نام سیب',
+        field: 'namasde',
+        component: 'text',
+        isHeader: true,
+        validation(value) {
+          return value.length > 5 || 'غلطه'
+        }
+      }
+    ]
+  },
+  {
+    title: 'نام سیب',
+    field: 'namasde',
+    component: 'text',
+    isHeader: true,
+    validation(value) {
+      return value.length > 5 || 'غلطه'
+    }
+  },
+  {
+    title: 'نام سیب',
     field: 'namasde',
     component: 'text',
     isHeader: true,

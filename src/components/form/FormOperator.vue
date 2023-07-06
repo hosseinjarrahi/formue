@@ -1,25 +1,30 @@
 <template>
   <div class="flex flex-wrap">
+    {{
+      (() => {
+        fieldNumber = 0
+      })()
+    }}
     <component
-      v-for="(schema, key) in filteredFields"
-      :is="Array.isArray(schema) ? 'FieldSet' : 'div'"
-      class="flex flex-wrap"
-      :label="key"
-      :key="key"
+      v-for="(schema, indexMain) in filteredFields"
+      :is="getGroupComp(schema)"
+      :label="getSafe(schema, 'groupLabel')"
+      :key="indexMain"
+      v-bin="{ ...defaltGroupAttr, ...getSafe(schema, 'groupAttr') }"
     >
-      <div
-        v-for="(property, index) in Array.isArray(schema) ? schema : [schema]"
-        class="my-0 p-1 w-full"
+      <component
+        :is="getParentComp(schema)"
+        v-for="property in has(schema, 'groupLabel') ? schema.items : [schema]"
         :key="property.field"
-        v-bind="getSafe(property, 'class', {})"
+        v-bind="{ ...defaltParentAttr, ...getSafe(property, 'parentAttr', {}) }"
       >
         <component
-          :index="index"
+          :index="fieldNumber++"
           v-bind="bind(property)"
           :is="getComponent(property)"
           @mounted="mounted(property.field)"
         />
-      </div>
+      </component>
     </component>
   </div>
 </template>
@@ -31,12 +36,21 @@ import { event, listen } from './../../composables/useEmitter'
 import { sortBy, has, pickBy, isString, isEmpty, flatten, get as getSafe } from 'lodash'
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 import FieldSet from '@/components/utilities/FieldSet.vue'
+import Div from '@/components/utilities/DivComp.vue'
 
 const props = defineProps({
   fields: {},
   form: {},
   index: {}
 })
+
+const defaltParentAttr = {
+  class: 'flex p-1 flex-wrap w-full'
+}
+
+const defaltGroupAttr = {
+  class: 'my-0 p-1 w-full'
+}
 
 const emit = defineEmits(['updateField'])
 
@@ -146,5 +160,25 @@ function getProp(field) {
 
 function getFromSchema(field) {
   return (prop, def = null) => getSafe(field, prop, def)
+}
+
+function getParentComp(schema) {
+  if (has(schema, 'parentComponent')) {
+    return getSafe(schema, 'parentComponent')
+  }
+
+  return Div
+}
+
+function getGroupComp(schema) {
+  if (has(schema, 'groupComponent')) {
+    return getSafe(schema, 'groupComponent')
+  }
+
+  if (has(schema, 'groupLabel')) {
+    return FieldSet
+  }
+
+  return Div
 }
 </script>
