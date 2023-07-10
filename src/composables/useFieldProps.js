@@ -7,6 +7,7 @@ export default {
   filters: {},
   index: {},
   getProp: {},
+  getPropsExcept: {},
   getFromSchema: {},
   value: {},
   error: {}

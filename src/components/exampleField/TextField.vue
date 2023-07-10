@@ -1,6 +1,5 @@
 <template>
   {{ getFromSchema('title') }}
-  {{ index }}
   <input
     class="border-2 border-indigo-600 rounded w-full"
     :value="value"
@@ -15,5 +14,9 @@
 import { defineProps } from 'vue'
 import useFieldProps from '../../composables/useFieldProps'
 
-defineProps(useFieldProps)
+const props = defineProps(useFieldProps)
+
+watch(props.value, () => {
+  console.log(value)
+})
 </script>

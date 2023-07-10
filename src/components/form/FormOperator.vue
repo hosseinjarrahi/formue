@@ -18,11 +18,7 @@
         :key="property.field"
         v-bind="{ ...defaltParentAttr, ...getSafe(property, 'parentAttr', {}) }"
       >
-        <component
-          :index="fieldNumber++"
-          v-bind="bind(property)"
-          :is="getComponent(property)"
-        />
+        <component :index="fieldNumber++" v-bind="bind(property)" :is="getComponent(property)" />
       </component>
     </component>
   </div>
@@ -77,6 +73,7 @@ function bind(schema) {
     fields: props.fields,
     filters: filters.value,
     getProp: getProp(schema),
+    getPropsExcept: getPropsExcept(schema),
     getFromSchema: getFromSchema(schema),
     value: getSafe(props.form, schema.field),
     error: getSafe(errors.value, schema.field, false),
@@ -147,6 +144,19 @@ function getComponent(schema) {
 
 function getProp(field) {
   return (prop, def = null) => getSafe(field, prop === '*' ? 'props' : `props.${prop}`, def)
+}
+
+function getPropsExcept(field) {
+  return (exceptProps) => {
+    const props = getSafe(field, 'props')
+    const out = {}
+    for (const key in props) {
+      if (!exceptProps.includes(key)) {
+        out[key] = props[key]
+      }
+    }
+    return out
+  }
 }
 
 function getFromSchema(field) {
