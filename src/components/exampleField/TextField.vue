@@ -11,10 +11,10 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-import useFieldProps from '../../composables/useFieldProps'
+import { defineProps, watch } from 'vue'
+import propsField from '@/helpers/propsField'
 
-const props = defineProps(useFieldProps)
+const props = defineProps(propsField)
 
 watch(props.value, () => {
   console.log(value)

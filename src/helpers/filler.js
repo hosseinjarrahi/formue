@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import { get as safeGet, isObject, has } from 'lodash'
 import { watch } from 'vue'
-import { event } from './useEmitter'
+import { event } from '@/helpers/emitter'
+
+let initialForm
 
 export default ({ props, emit }) => {
-  let initialForm
-
   async function initFormData() {
     let formTmp
     if (props.formData) {

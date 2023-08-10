@@ -7,23 +7,20 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, provide } from 'vue'
-import useFillForm from '../composables/useFillForm'
+import { defineProps, defineEmits } from 'vue'
+import filler from '@/helpers/filler'
 import FormOperator from './form/FormOperator.vue'
 
 const props = defineProps({
-  formData: { default: false },
   modelValue: { default: () => {} },
+  formData: { default: false },
   fields: { default: () => [] },
-  autoGenerate: { default: () => true },
-  name: { default: 'form' }
+  autoGenerate: { default: () => true }
 })
-
-provide('form.name', props.name)
 
 const emit = defineEmits(['callParentChanged', 'update:modelValue'])
 
-const { updateField } = useFillForm({
+const { updateField } = filler({
   props,
   emit
 })

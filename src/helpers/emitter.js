@@ -48,6 +48,12 @@ export const clear = (callback) => {
   for (let fn of lockedListeners) listen(fn)
 }
 
-export function useEmitter() {
-  return { listen, event, clear, emitter }
+export default {
+  emitter,
+  listen,
+  event,
+  runAfterPageChanged,
+  runAfterPageLoaded,
+  runBeforeMajraInit,
+  clear
 }

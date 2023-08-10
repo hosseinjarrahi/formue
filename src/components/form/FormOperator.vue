@@ -25,13 +25,12 @@
 </template>
 
 <script setup>
-import useFormue from '../../composables/useFormue'
-import { ref, defineProps, defineEmits, computed, inject } from 'vue'
-import { event, listen } from './../../composables/useEmitter'
-import { sortBy, has, pickBy, isString, isEmpty, flatten, get as getSafe } from 'lodash'
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-import FieldSet from '@/components/utilities/FieldSet.vue'
+import { listen } from '@/helpers/emitter'
 import Div from '@/components/utilities/DivComp.vue'
+import { registeredFields } from '@/helpers/fieldsStore'
+import FieldSet from '@/components/utilities/FieldSet.vue'
+import { ref, defineProps, defineEmits, computed } from 'vue'
+import { sortBy, has, pickBy, isString, isEmpty, flatten, get as getSafe } from 'lodash'
 
 const props = defineProps({
   fields: {},
@@ -60,13 +59,6 @@ const filteredFields = computed(() =>
 
 const errors = ref({})
 
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-function created() {
-  listen('resetFilters', () => {
-    filters.value = {}
-  })
-}
-
 function bind(schema) {
   return {
     form: props.form,
@@ -88,9 +80,7 @@ function validate() {
   }
 }
 
-const formName = inject('form.name')
-
-listen('validate.' + formName, (result) => {
+listen('validate', (result) => {
   validate()
   result.value.errors = pickBy(errors.value, (val) => !!val)
   result.value.isValid = isEmpty(result.value.errors)
@@ -133,8 +123,6 @@ function parentChanged(schema, value, init = false) {
 function findFieldByModel(model) {
   return flatFields.value.filter((f) => f?.rel?.model == model)[0]
 }
-
-const { registeredFields } = useFormue()
 
 function getComponent(schema) {
   return has(schema, 'component') && isString(schema.component)
