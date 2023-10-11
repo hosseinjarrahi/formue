@@ -1,4 +1,5 @@
 <template>
+  {{ form }}
   <MForm :fields="fields" v-model="form" :form-data="formData" />
 </template>
 
@@ -8,60 +9,49 @@
 import TextField from './components/exampleField/TextField.vue'
 import { registerFields } from './helpers/fieldsStore'
 import MForm from './components/MForm.vue'
-import { ref } from 'vue'
-import FieldSet from '@/components/utilities/FieldSet.vue'
+import { ref, markRaw, watch, nextTick } from 'vue'
 
 registerFields({
   text: TextField
 })
 
-const form = ref({ name: '' })
-const formData = ref({ name: 'test' })
+const form = ref({})
+const formData = ref({})
 
-const fields = [
+const fields = ref([
   {
-    groupLabel: 'group',
-    groupComponent: FieldSet,
-    items: [
-      {
-        groupAttr: { class: 'w-1/2' },
-        parentAttr: { class: 'w-1/2' },
-        title: 'نام سیبش',
-        field: 'name',
-        component: 'text',
-        isHeader: true,
-        validation(value) {
-          return value.length > 5 || 'غلطه'
-        }
-      },
-      {
-        title: 'نام سیب',
-        field: 'namasde',
-        component: 'text',
-        isHeader: true,
-        validation(value) {
-          return value.length > 5 || 'غلطه'
-        }
-      },
-      {
-        title: 'نام سیب',
-        field: 'namasde',
-        component: 'text',
-        isHeader: true,
-        validation(value) {
-          return value.length > 5 || 'غلطه'
-        }
-      },
-      {
-        title: 'نام سیب',
-        field: 'namasde',
-        component: 'text',
-        isHeader: true,
-        validation(value) {
-          return value.length > 5 || 'غلطه'
-        }
-      }
-    ]
+    title: 'field1',
+    field: 'field1',
+    isHeader: true,
+    groupAttr: { class: 'w-[32.5%]' },
+    component: markRaw(TextField)
   }
-]
+])
+
+watch(
+  () => form.value.field1,
+  (value) => {
+    fields.value.length = 1
+
+    if (value === 'n') {
+      nextTick(() => {
+        fields.value.push({
+          title: 'field3',
+          field: 'field3',
+          isHeader: true,
+          groupAttr: { class: 'w-[32.5%]' },
+          component: markRaw(TextField)
+        })
+      })
+    } else {
+      fields.value.push({
+        title: 'field2',
+        field: 'field2',
+        isHeader: true,
+        groupAttr: { class: 'w-[32.5%]' },
+        component: markRaw(TextField)
+      })
+    }
+  }
+)
 </script>
