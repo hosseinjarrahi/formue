@@ -7,7 +7,7 @@ export const listen = (event, fn, lock = false) => {
   event = Array.isArray(event) ? event : [event]
   for (const e of event) {
     emitter.on(e, fn)
-    lock && lockedListeners.push(fn)
+    lock && lockedListeners.push([event, fn]);
   }
 }
 
@@ -45,7 +45,7 @@ export const clear = (callback) => {
     fns2.forEach((fn) => fn(args))
     fns2 = []
   })
-  for (let fn of lockedListeners) listen(fn)
+  for (let listener of lockedListeners) listen(listener[0], listener[1]);
 }
 
 export default {

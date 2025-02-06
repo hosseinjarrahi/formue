@@ -24,34 +24,7 @@ const fields = ref([
     field: 'field1',
     isHeader: true,
     groupAttr: { class: 'w-[32.5%]' },
-    component: markRaw(TextField)
+    component: 'text'
   }
 ])
-
-watch(
-  () => form.value.field1,
-  (value) => {
-    fields.value.length = 1
-
-    if (value === 'n') {
-      nextTick(() => {
-        fields.value.push({
-          title: 'field3',
-          field: 'field3',
-          isHeader: true,
-          groupAttr: { class: 'w-[32.5%]' },
-          component: markRaw(TextField)
-        })
-      })
-    } else {
-      fields.value.push({
-        title: 'field2',
-        field: 'field2',
-        isHeader: true,
-        groupAttr: { class: 'w-[32.5%]' },
-        component: markRaw(TextField)
-      })
-    }
-  }
-)
 </script>
